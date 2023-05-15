@@ -1,0 +1,148 @@
+﻿<UserControl x:Class="MallMan.MVVM.View.ProductsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MallMan.MVVM.View"
+             mc:Ignorable="d" 
+             xmlns:viewmodel="clr-namespace:MallMan.MVVM.ViewModel"
+             d:DesignHeight="800" d:DesignWidth="1525">
+    <UserControl.DataContext>
+        <viewmodel:ProductsViewModel/>
+    </UserControl.DataContext>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button Style="{StaticResource newProductButton}"
+                Width="200"
+                Command="{Binding AddProductCommand}"
+                HorizontalAlignment="Left">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Stretch">
+                    <Image Source="C:\Users\mehme\source\repos\MallMan\MallMan\Icons\newProduct.png"
+                           Width="40"
+                           Margin="0,0,20,0"
+                           Height="40"/>
+                    <TextBlock Text="Yeni Ürün"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Style="{StaticResource newProductButton}"
+                    Content="Sil"
+                    Command="{Binding DeleteProductCommand}"
+                    Width="100"
+                    Margin="0,0,30,0"
+                    HorizontalContentAlignment="Center">
+            </Button>
+
+            <Button Style="{StaticResource newProductButton}"
+                    Content="Düzenle"
+                    Command="{Binding EditProductCommand}"
+                    Width="150"
+                    Margin="0,0,30,0"
+                    HorizontalContentAlignment="Center">
+            </Button>
+            <Border Width="350"
+                    Background="White"
+                    CornerRadius="10"
+                    Margin="0,0,30,0"
+                    Padding="10">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="20"
+                           Height="20"
+                           Source="C:\Users\mehme\source\repos\MallMan\MallMan\Icons\search.png"/>
+                    <TextBox Width="300"
+                             Text="{Binding Filter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             TextAlignment="Left"
+                             VerticalAlignment="Center"
+                             Foreground="Gray"
+                             BorderThickness="0"/>
+                </StackPanel>
+            </Border>
+            <Border Width="150"
+                    Background="White"
+                    Margin="0,0,0,0"
+                    CornerRadius="10"
+                    Padding="10,0">
+                <Menu Background="Transparent"
+                      VerticalAlignment="Center"
+                          Foreground="Gray"
+                          FontFamily="Verdana"
+                          FontSize="14">
+                    <MenuItem Header="Filtrele"
+                                  VerticalAlignment="Center">
+                        <MenuItem.Icon>
+                            <Image Source="C:\Users\mehme\source\repos\MallMan\MallMan\Icons\search.png"/>
+                        </MenuItem.Icon>
+                        <MenuItem Header="Ürün Adı"
+                                  Command="{Binding FilterByName}"
+                                  Background="White"
+                                  VerticalAlignment="Center">
+                        </MenuItem>
+                        <MenuItem Header="Ürün No"
+                                  Command="{Binding FilterByProductNo}"
+                                  Background="White"
+                                  VerticalAlignment="Center">
+                        </MenuItem>
+                        <MenuItem Header="Ürün Fiyatı"
+                                  Command="{Binding FilterByProductPrice}"
+                                  Background="White"
+                                  VerticalAlignment="Center">
+                        </MenuItem>
+                    </MenuItem>
+                </Menu>
+            </Border>
+        </StackPanel>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="680"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="#"
+                       TextAlignment="Center"
+                       FontFamily="Verdana"
+                       VerticalAlignment="Center"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Foreground="DimGray"/>
+            <TextBlock Text="Ürün Detayları"
+                       Grid.Column="1"
+                       FontFamily="Verdana"
+                       TextAlignment="Left"
+                       VerticalAlignment="Center"
+                       FontSize="20"
+                       Foreground="DimGray"/>
+            <TextBlock Text="Fiyat"
+                       Grid.Column="2"
+                       FontFamily="Verdana"
+                       TextAlignment="Left"
+                       VerticalAlignment="Center"
+                       FontSize="20"
+                       Foreground="DimGray"/>
+            <TextBlock Text="Ürün Adedi"
+                       Grid.Column="3"
+                       FontFamily="Verdana"
+                       TextAlignment="Left"
+                       VerticalAlignment="Center"
+                       FontSize="20"
+                       Foreground="DimGray"/>
+        </Grid>
+        <ListView Grid.Row="3"
+                  Background="Transparent"
+                  SelectedItem="{Binding SelectedProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  ItemContainerStyle="{StaticResource ProductCard}"
+                  ItemsSource="{Binding ProductsCollectionView, UpdateSourceTrigger=PropertyChanged}"
+                  BorderThickness="0">
+        </ListView>
+    </Grid>
+</UserControl>

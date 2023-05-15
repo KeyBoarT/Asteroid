@@ -1,0 +1,95 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="{x:Type MenuItem}" x:Key="SubMenuItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type MenuItem}">
+                    <Border x:Name="BorderSubMenu"
+                            Margin="5"
+                            Padding="5"
+                            Background="Transparent"
+                            BorderThickness="0">
+                        <Grid>
+                            <ContentPresenter ContentSource="Icon"
+                                              HorizontalAlignment="Left"
+                                              VerticalAlignment="Center"
+                                              Height="30"
+                                              Width="30"
+                                              Margin="0,0,0,0"/>
+                            <ContentPresenter ContentSource="Header"
+                                              x:Name="Text"
+                                              TextBlock.Foreground="{DynamicResource Bulut}"
+                                              TextBlock.FontFamily="Consolas"
+                                              TextBlock.FontSize="18"
+                                              TextBlock.FontWeight="Thin"
+                                              HorizontalAlignment="Left"
+                                              VerticalAlignment="Center"
+                                              Margin="40,0,0,0">
+                                <ContentPresenter.Effect>
+                                    <DropShadowEffect ShadowDepth="5" Direction="0"
+                                              Opacity="1"/>
+                                </ContentPresenter.Effect>
+                            </ContentPresenter>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsHighlighted" Value="True">
+                            <Setter TargetName="Text" Property="TextBlock.FontWeight" Value="Bold"/>
+                            <Setter Property="Effect" TargetName="Text">
+                                <Setter.Value>
+                                    <DropShadowEffect ShadowDepth="1" Color="{DynamicResource BulutRengi}" RenderingBias="Quality"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="{x:Type MenuItem}" x:Key="MainMenuItem">
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="Margin" Value="10,5"/>
+        <Setter Property="Width" Value="50"/>
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type MenuItem}">
+                    <Border x:Name="Border"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            CornerRadius="5"
+                            Margin="4">
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth=".5" Direction="0"
+                                              Opacity=".75"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <ContentPresenter ContentSource="Header"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center">
+                            </ContentPresenter>
+
+                            <Popup IsOpen="{TemplateBinding IsSubmenuOpen}" AllowsTransparency="True" x:Name="SubPopUp" Width="140" PopupAnimation="Scroll">
+                                <Border BorderThickness="0" Background="Transparent">
+                                    <StackPanel>
+                                        <Border Height="4" HorizontalAlignment="Stretch" Background="Transparent"/>
+                                        <Border CornerRadius="10,10,10,10" Background="{DynamicResource GeceYarisiMavisi}" Opacity=".9">
+                                            <StackPanel IsItemsHost="True"/>
+                                        </Border>
+                                    </StackPanel>
+                                </Border>
+                            </Popup>
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsHighlighted"
+                                 Value="True">
+                            <Setter Property="Background" TargetName="Border" Value="{DynamicResource GeceYarisiMavisi}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource Bulut}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

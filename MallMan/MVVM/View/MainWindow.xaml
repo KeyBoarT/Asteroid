@@ -1,0 +1,205 @@
+﻿<Window x:Class="MallMan.MVVM.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MallMan.MVVM.View"
+        xmlns:modelview="clr-namespace:MallMan.MVVM.ViewModel"
+        xmlns:extensions="clr-namespace:MallMan.Core"
+        mc:Ignorable="d"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        ResizeMode="CanResizeWithGrip"
+        WindowStartupLocation="CenterScreen"
+        Title="MainWindow"
+        x:Name="windowMain"
+        Height="900"
+        MinHeight="900"
+        Width="1600"
+        MinWidth="1600">
+    <Window.DataContext>
+        <modelview:MainViewModel/>
+    </Window.DataContext>
+    <DockPanel Background="Transparent"
+               x:Name="RootPanel">
+        <Border Width="75"
+                HorizontalAlignment="Left"
+                CornerRadius="5,0,0,5">
+            <Border.Background>
+                <LinearGradientBrush StartPoint=".5,0" EndPoint=".5,1">
+                    <GradientStop Color="{StaticResource GeceYarisiMavisiRengi}" Offset=".3"/>
+                    <GradientStop Color="{StaticResource islakAsfaltRengi}" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Border.Style>
+                <Style>
+                    <Style.Triggers>
+                        <EventTrigger RoutedEvent="Border.MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="(Border.Width)"
+                                                     To="200"
+                                                     Duration="0:0:.1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+
+                        <EventTrigger RoutedEvent="Border.MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="(Border.Width)"
+                                                     To="75"
+                                                     Duration="0:0:.1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+                <Border Background="{StaticResource GeceYarisiMavisi}" CornerRadius="5,0,0,0">
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth=".5" Direction="0"
+                                              Opacity=".3"/>
+                    </Border.Effect>
+                    <Image Source="/Icons/icon.png" Width="200" Height="100" Margin="8,8,0,0"/>
+                </Border>
+                <Border Grid.Row="1">
+                    <StackPanel Orientation="Vertical"
+                                Margin="0,16,0,0">
+                        <RadioButton Content="Anamenü"
+                                     IsChecked="True"
+                                     Command="{Binding ShowHomeViewCommand}"
+                                     extensions:Extensions.Icon="🏠"/>
+                        <RadioButton Content="Mağazalar"
+                                     Command="{Binding ShowStoresViewCommand}"
+                                     extensions:Extensions.Icon="📰"/>
+                        <RadioButton Content="Harita"
+                                     Command="{Binding ShowMapsViewCommand}"
+                                     extensions:Extensions.Icon="🗺" Margin="2,0,-2,0"/>
+                        <RadioButton Content="Ayarlar"
+                                     Command="{Binding ShowSettingViewCommand}"
+                                     extensions:Extensions.Icon="🔧"/>
+                        <RadioButton Content="Geliştirici"
+                                     Command="{Binding ShowDeveloperViewCommand}"
+                                     extensions:Extensions.Icon="🔍"/>
+                    </StackPanel>
+                </Border>
+                <Border Background="{StaticResource islakAsfalt}"
+                        Grid.Row="2"
+                        CornerRadius="0,0,0,5">
+                    <TextBlock Text="Version 1.0.0"
+                               FontSize="9"
+                               TextAlignment="Center"
+                               FontFamily="Consolas"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Stretch"
+                               Foreground="{StaticResource Beton}"/>
+                </Border>
+            </Grid>
+        </Border>
+        <Border CornerRadius="0,5,5,0">
+            <Border.Background>
+                <LinearGradientBrush StartPoint=".5,0" EndPoint=".5,1">
+                    <GradientStop Color="{StaticResource BulutRengi}" Offset="0"/>
+                    <GradientStop Color="AliceBlue"  Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <DockPanel>
+                <Border Background="Transparent"
+                Height="100"
+                CornerRadius="0,5,0,0"
+                DockPanel.Dock="Top">
+                    <Border.InputBindings>
+                        <MouseBinding MouseAction="LeftClick"
+                              Command="{Binding MoveWindowCommand}"
+                              CommandParameter="{Binding ElementName=windowMain}"/>
+
+                        <MouseBinding MouseAction="LeftDoubleClick"
+                              Command="{Binding MaximizeWindowCommand}"
+                              CommandParameter="{Binding ElementName=windowMain}"/>
+                    </Border.InputBindings>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="250"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding CurrentAccount.AdminName}"
+                           FontSize="36"
+                           FontWeight="DemiBold"
+                           FontFamily="Miriam Mono CLM"
+                           VerticalAlignment="Bottom"
+                           Foreground="{StaticResource GeceYarisiMavisi}"
+                           Margin="10,0,0,16">
+                            <TextBlock.Effect>
+                                <DropShadowEffect ShadowDepth=".5" Direction="0"
+                                              Opacity=".3"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                        <StackPanel 
+                            Margin="0,0,10,0"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            Grid.Column="1">
+                            <Menu Margin="10,5" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <MenuItem Header="☰"
+                                          Padding="12,0,0,0"
+                                          Style="{StaticResource MainMenuItem}">
+                                    <MenuItem Header="Çıkış" Style="{StaticResource SubMenuItem}" Command="{Binding CloseWindowCommand}">
+                                        <MenuItem.Icon>
+                                            <Image Source="/Icons/exit.png"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Header="Minimize"
+                                              Command="{Binding MinimizeWindowCommand}"
+                                              CommandParameter="{Binding ElementName=windowMain}"
+                                              Style="{StaticResource SubMenuItem}">
+                                        <MenuItem.Icon>
+                                            <Image Source="/Icons/minimize.png"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Header="Maximize"
+                                              Command="{Binding MaximizeWindowCommand}"
+                                              CommandParameter="{Binding ElementName=windowMain}"
+                                              Style="{StaticResource SubMenuItem}">
+                                        <MenuItem.Icon>
+                                            <Image Source="/Icons/maximize.png"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Header="Güncelle"
+                                              Command="{Binding RefreshWindowCommand}"
+                                              Style="{StaticResource SubMenuItem}">
+                                        <MenuItem.Icon>
+                                            <Image Source="/Icons/refresh.png"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </MenuItem>
+                                <MenuItem Header="🔔"
+                                          Padding="7,0,0,0"
+                                          Style="{StaticResource MainMenuItem}">
+                                    <MenuItem Header="Selam" Style="{StaticResource SubMenuItem}">
+                                        <MenuItem.Icon>
+                                            <Image Source="/Icons/hello.png"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </MenuItem>
+                            </Menu>
+                            <Ellipse Width="75" Height="75">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="{Binding CurrentAccount.AdminImage, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <ContentPresenter Content="{Binding CurrentView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </DockPanel>
+        </Border>
+    </DockPanel>
+</Window>

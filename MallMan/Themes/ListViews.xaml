@@ -1,0 +1,195 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="ListViewItem" x:Key="StoreCard">
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="#6930c3"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
+
+        <Setter Property="Background" Value="#008080"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListViewItem">
+                    <Border Background="{TemplateBinding Background}"
+                            Height="75"
+                            CornerRadius="7.5"
+                            Margin="20,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <CheckBox IsChecked="False" x:Name="Check" 
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                            
+                            <Label Content="{Binding StoreID}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Foreground="{TemplateBinding Foreground}" 
+                                   FontSize="30" 
+                                   Grid.Column="1"/>
+                            
+                            <Label Content="{Binding StoreName}" 
+                                   Foreground="{TemplateBinding Foreground  }"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="25" 
+                                   Grid.Column="2"/>
+
+                            <Label Content="{Binding OwnerName}" 
+                                   Foreground="{TemplateBinding Foreground}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="25" 
+                                   Grid.Column="3"/>
+                            
+                            <Label Content="{Binding MallID}" 
+                                   Foreground="{TemplateBinding Foreground}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="30" 
+                                   Grid.Column="4"/>
+                            
+                            <Ellipse Margin="5"
+                                     Width="67.5"
+                                     Height="67.5"
+                                     Grid.Column="5">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="{Binding Image}"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="ComboBoxItem" x:Key="MallCard">
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect BlurRadius="100">
+                        </DropShadowEffect>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="Background" Value="{StaticResource Gumus}"/>
+        <Setter Property="Foreground" Value="{StaticResource KoyuGeceYarisiMavisi}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBoxItem">
+                    <Border Background="{TemplateBinding Background}"
+                            Height="75"
+                            CornerRadius="7.5"
+                            Margin="20,10">
+                        <TextBlock Text="{Binding MallID}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ListViewItem" x:Key="ProductCard">
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{StaticResource GeceYarisiMavisi}"/>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect BlurRadius="25"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+
+        <Setter Property="Background" Value="{StaticResource AcikGeceYarisiMavisi}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListViewItem">
+                    <Border Background="{TemplateBinding Background}"
+                            Height="100"
+                            Margin="5,10"
+                            CornerRadius="7.5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="680"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding ProductID}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       TextAlignment="Center"
+                                       FontSize="20"
+                                       FontWeight="Black"
+                                       FontFamily="Verdana">
+                                
+                            </TextBlock>
+                            <Grid Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Border Grid.RowSpan="2" Width="60"
+                                        Height="60"
+                                        VerticalAlignment="Center"
+                                        CornerRadius="7.5"
+                                        BorderThickness="0">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="{Binding ProductImage}"/>
+                                    </Border.Background>
+                                </Border>
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding ProductName}"
+                                           Foreground="{TemplateBinding Foreground}"
+                                           FontSize="20"
+                                           FontFamily="Verdana"
+                                           VerticalAlignment="Bottom"
+                                           Margin="0,5"/>
+                                <TextBlock HorizontalAlignment="Left"
+                                           VerticalAlignment="Top"
+                                           Grid.Column="1"
+                                           Grid.Row="1"
+                                           Width="600"
+                                           Text="{Binding ProductInfo}"
+                                           FontSize="14"
+                                           TextTrimming="WordEllipsis"
+                                           FontFamily="Consolas"
+                                           TextAlignment="Left"/>
+                            </Grid>
+                            <TextBlock Text="{Binding ProductPrice}"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       Grid.Column="2"
+                                       FontSize="20"
+                                       FontFamily="Verdana"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Left"/>
+                            <TextBlock Text="{Binding ProductAmount}"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       Grid.Column="3"
+                                       FontSize="20"
+                                       FontFamily="Verdana"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Left"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
